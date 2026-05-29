@@ -11,6 +11,7 @@ const {
   getSavedFAQs,
   getActivityFeed,
   getUserActivity,
+  getUserAnswers,
   getLeaderboard,
 } = require('../controllers/userController');
 

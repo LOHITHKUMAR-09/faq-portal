@@ -7,9 +7,11 @@ const helmet = require('helmet');
 const cors = require('cors');
 const expressMongoSanitize = require('express-mongo-sanitize');
 const rateLimit = require('express-rate-limit');
+const { ipKeyGenerator } = require('express-rate-limit');
 const connectDB = require('./config/db');
 const initSocket = require('./config/socket');
 const { sendWeeklyDigest } = require('./utils/weeklyDigest');
+const AppError = require('./utils/AppError');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -82,7 +84,7 @@ app.use('/api/auth', authLimiter);
 const createFAQLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 5,
-  keyGenerator: (req) => req.ip,
+  keyGenerator: ipKeyGenerator,
   message: { success: false, error: 'FAQ creation limit reached (5/hour). Try again later.' },
   standardHeaders: true,
   legacyHeaders: false,
@@ -92,7 +94,7 @@ const createFAQLimiter = rateLimit({
 const addAnswerLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 10,
-  keyGenerator: (req) => req.ip,
+  keyGenerator: ipKeyGenerator,
   message: { success: false, error: 'Answer limit reached (10/hour). Try again later.' },
   standardHeaders: true,
   legacyHeaders: false,
@@ -102,7 +104,7 @@ const addAnswerLimiter = rateLimit({
 const reportLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 3,
-  keyGenerator: (req) => req.ip,
+  keyGenerator: ipKeyGenerator,
   message: { success: false, error: 'Report limit reached (3/hour). Try again later.' },
   standardHeaders: true,
   legacyHeaders: false,

@@ -796,7 +796,6 @@ const getMeta = async (req, res, next) => {
 
 // voteAnswer — exported for backwards compatibility (routes reference this name)
 // Routes use voteFAQ for FAQ votes; answer votes are handled in the answer subdoc
-const voteAnswer = voteFAQ;
 
 module.exports = {
   getAll,
@@ -807,7 +806,7 @@ module.exports = {
   togglePin,
   toggleWiki,
   voteFAQ,
-  voteAnswer,
+  voteAnswer: voteFAQ, // exported for backwards compatibility
   addAnswer,
   updateAnswer,
   deleteAnswer,
