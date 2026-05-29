@@ -182,11 +182,11 @@ FAQSchema.pre('save', function (next) {
     return findUniqueSlug()
       .then(() => {
         this.slug = slug;
-        // next();
       })
-      .catch(next);
+      .catch(err => next(err));
+  } else {
+    next();
   }
-  // next();
 });
 
 module.exports = mongoose.model('FAQ', FAQSchema);

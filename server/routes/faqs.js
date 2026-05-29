@@ -34,6 +34,7 @@ const {
 } = require('../controllers/faqController');
 
 // All public list/search endpoints — light pagination validation only
+router.get('/',       optionalAuth, paginationRules, getAll);
 router.get('/search',  optionalAuth, paginationRules, search);
 router.get('/trending', optionalAuth, getTrending);
 

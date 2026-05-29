@@ -315,7 +315,7 @@ const SubmitFAQPage = () => {
           <div>
             <div className="flex items-center justify-between mb-1.5">
               <label className="text-sm font-semibold text-gray-700">Tags <span className="text-gray-400 font-normal">(up to {MAX_TAGS})</span></label>
-              <span className="text-xs text-gray-400">{tags.length}/{MAX_TAGS}</span>
+              <span className="text-xs text-gray-400">{form.tags.length}/{MAX_TAGS}</span>
             </div>
             <TagInput
               tags={form.tags}

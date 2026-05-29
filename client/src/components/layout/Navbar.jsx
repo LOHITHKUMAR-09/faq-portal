@@ -58,7 +58,7 @@ const Navbar = () => {
               <NavLink to="/leaderboard" className={navLinkClass}>Leaderboard</NavLink>
               {user && (
                 <>
-                  <NavLink to="/submit" className={navLinkClass}>Submit FAQ</NavLink>
+                  <NavLink to="/faqs/submit" className={navLinkClass}>Submit FAQ</NavLink>
                   <NavLink to="/feed" className={navLinkClass}>Feed</NavLink>
                 </>
               )}
@@ -182,7 +182,7 @@ const Navbar = () => {
 
             {user ? (
               <>
-                <NavLink to="/submit" onClick={() => setMenuOpen(false)} className={overlayLinkClass}>Submit FAQ</NavLink>
+                <NavLink to="/faqs/submit" onClick={() => setMenuOpen(false)} className={overlayLinkClass}>Submit FAQ</NavLink>
                 <NavLink to="/feed" onClick={() => setMenuOpen(false)} className={overlayLinkClass}>Activity Feed</NavLink>
                 <NavLink to="/saved" onClick={() => setMenuOpen(false)} className={overlayLinkClass}>Saved FAQs</NavLink>
                 <NavLink to={`/profile/${user.id}`} onClick={() => setMenuOpen(false)} className={overlayLinkClass}>Profile</NavLink>
