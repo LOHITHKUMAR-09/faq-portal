@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       unique: true,
+      sparse: true,
       lowercase: true,
       trim: true,
       maxlength: [30, 'Username cannot exceed 30 characters'],
@@ -117,11 +118,9 @@ const userSchema = new mongoose.Schema(
 
 userSchema.plugin(mongoosePaginate);
 
-userSchema.pre('save', async function (next) {
-  // if (!this.isModified('passwordHash')) return next();
-  if (!this.isModified('passwordHash'))
+userSchema.pre('save', async function () {
+  if (!this.isModified('passwordHash')) return;
   this.passwordHash = await bcrypt.hash(this.passwordHash, 10);
-  // next(); commited due to error in step 39
 });
 
 userSchema.methods.matchPassword = async function (plain) {

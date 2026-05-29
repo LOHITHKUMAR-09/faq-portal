@@ -48,4 +48,5 @@ export const useAuth = () => {
   return ctx;
 };
 
+export { AuthProvider };
 export default AuthContext;

@@ -7,7 +7,7 @@ const getInitialTheme = () => {
     const stored = localStorage.getItem('theme');
     if (stored === 'dark' || stored === 'light') return stored;
   } catch {}
-  return window.matchMedia('prefers-color-scheme: dark').matches ? 'dark' : 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
 const applyTheme = (theme) => {
@@ -19,7 +19,7 @@ const applyTheme = (theme) => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(getInitialTheme);
+  const [theme, setTheme] = useState(getInitialTheme());
 
   useEffect(() => {
     applyTheme(theme);

@@ -5,6 +5,7 @@ const { sendEmail } = require('../utils/sendEmail');
 
 const register = async (req, res, next) => {
   try {
+    console.log('Register endpoint hit');
     const { name, email, password } = req.body;
 
     const existing = await User.findOne({ email: email.toLowerCase() });
@@ -20,11 +21,14 @@ const register = async (req, res, next) => {
     });
 
     const verifyUrl = `${process.env.CLIENT_URL}/verify-email/${emailVerifyToken}`;
-    await sendEmail({
+    
+    sendEmail({
       to: user.email,
       subject: 'Verify your FAQ Portal account',
       text: `Click to verify: ${verifyUrl}`,
       html: `<a href="${verifyUrl}">Click to verify your email</a>`,
+    }).catch((err) => {
+      console.warn('Email verification notification failed:', err.message);
     });
 
     const token = user.generateJWT();
@@ -42,6 +46,7 @@ const register = async (req, res, next) => {
       },
     });
   } catch (err) {
+    console.error('Registration error:', err);
     if (err.code === 11000) return next(new AppError('Email already registered', 400));
     next(err);
   }
@@ -111,7 +116,6 @@ const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
     const user = await User.findOne({ email: email.toLowerCase() });
-    // Always return success to prevent email enumeration
     if (!user) {
       return res.json({ success: true, message: 'If that email exists, a reset link has been sent.' });
     }
@@ -145,7 +149,7 @@ const resetPassword = async (req, res, next) => {
     const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
     const user = await User.findOne({
       resetPasswordToken: hashedToken,
-      resetPasswordExpire: { $gt: Date.now() },
+      resetPasswordExpire: { '$gt': Date.now() },
     });
 
     if (!user) return next(new AppError('Invalid or expired reset token', 400));

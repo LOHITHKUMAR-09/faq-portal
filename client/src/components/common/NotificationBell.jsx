@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bell, CheckCheck, X, Loader2 } from 'lucide-react';
-import { formatDistanceToNow } from 'timeago.js';
+import { format as timeago } from 'timeago.js';
 import { notifications as notifApi } from '../../services/api';
 import { useSocket } from '../../context/SocketContext';
 
@@ -123,7 +123,7 @@ const NotificationBell = () => {
                 >
                   <p className="text-sm text-gray-700 leading-snug">{n.message}</p>
                   <p className="text-xs text-gray-400 mt-0.5">
-                    {n.createdAt ? formatDistanceToNow(new Date(n.createdAt), { locale: 'en' }) : ''}
+                    {n.createdAt ? timeago(new Date(n.createdAt)) : ''}
                   </p>
                 </button>
               ))

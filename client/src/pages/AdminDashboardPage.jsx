@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { formatDistanceToNow, format } from 'timeago.js';
+import * as timeago from 'timeago.js';
 import {
   LayoutDashboard, Users, FileQuestion, AlertTriangle,
   TrendingUp, Search, Loader2, Shield, Trash2, Ban, CheckCircle,
@@ -411,7 +411,7 @@ const AdminDashboardPage = () => {
                           {u.createdAt ? format(new Date(u.createdAt), 'MMM d, yyyy') : '—'}
                         </td>
                         <td className="px-6 py-3.5 text-xs text-gray-400">
-                          {u.updatedAt ? formatDistanceToNow(new Date(u.updatedAt), { locale: 'en' }) : '—'}
+                          {u.updatedAt ? timeago(new Date(u.updatedAt)) : '—'}
                         </td>
                         <td className="px-6 py-3.5">
                           <div className="flex items-center justify-end gap-1">

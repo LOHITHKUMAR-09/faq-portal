@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Share2, Check, Twitter, MessageCircle } from 'lucide-react';
+import { Share2, Check, X, MessageCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const BASE_URL = import.meta.env.VITE_CLIENT_URL || window.location.origin;
@@ -61,7 +61,7 @@ const ShareButton = ({ question, faqId }) => {
             className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
             onClick={() => setOpen(false)}
           >
-            <Twitter size={15} className="text-sky-500 flex-shrink-0" />
+            <X size={15} className="text-sky-500 flex-shrink-0" />
             Share on X (Twitter)
           </a>
 

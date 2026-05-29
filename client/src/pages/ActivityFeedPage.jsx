@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { formatDistanceToNow } from 'timeago.js';
+import * as timeago from 'timeago.js';
 import { Rss, ThumbsUp, MessageSquare, Users, Loader2, TrendingUp } from 'lucide-react';
 import { users } from '../services/api';
 import toast from 'react-hot-toast';
@@ -145,7 +145,7 @@ const ActivityFeedPage = () => {
                         </Link>
                         <span className="text-xs text-gray-300">·</span>
                         <span className="text-xs text-gray-400">
-                          {faq.createdAt ? formatDistanceToNow(new Date(faq.createdAt), { locale: 'en' }) : ''}
+                          {faq.createdAt ? timeago(new Date(faq.createdAt)) : ''}
                         </span>
                       </div>
                       <Link to={`/faqs/${faq._id}`}

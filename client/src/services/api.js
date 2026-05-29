@@ -19,11 +19,10 @@ api.interceptors.response.use(
     if (err.response?.status === 401) {
       localStorage.removeItem('token');
       window.location.href = '/login';
-      return Promise.reject(new Error('Session expired. Please login again.'));
+      return Promise.reject(err);
     }
-    return Promise.reject(
-      new Error(err.response?.data?.message || err.response?.data?.error || 'Something went wrong')
-    );
+    // Preserve the original axios error so components can access err.response
+    return Promise.reject(err);
   }
 );
 

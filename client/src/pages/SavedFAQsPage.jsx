@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { formatDistanceToNow } from 'timeago.js';
+import * as timeago from 'timeago.js';
 import { Bookmark, ThumbsUp, MessageSquare, Eye, Loader2, BookmarkCheck } from 'lucide-react';
 import { users } from '../services/api';
 import toast from 'react-hot-toast';
@@ -99,7 +99,7 @@ const SavedFAQsPage = () => {
                         )}
                         {createdAt && (
                           <span className="text-xs text-gray-400">
-                            asked {formatDistanceToNow(new Date(createdAt), { locale: 'en' })}
+                            asked {timeago(new Date(createdAt))}
                           </span>
                         )}
                         {category && (

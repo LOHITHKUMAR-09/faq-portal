@@ -5,6 +5,11 @@ const AppError = require('../utils/AppError');
 const uploadAvatar = (req, res, next) => {
   if (!req.file) return next(new AppError('No file uploaded', 400));
 
+  // Check if cloudinary is configured
+  if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+    return next(new AppError('Cloudinary is not configured. File uploads are disabled.', 503));
+  }
+
   const uploadStream = cloudinary.uploader.upload_stream(
     {
       folder: 'faq-portal/avatars',

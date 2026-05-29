@@ -29,7 +29,8 @@ export default function RegisterPage() {
       toast.success('Account created successfully!');
       navigate('/faqs');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Registration failed');
+      const errorMsg = err.response?.data?.message || err.message || 'Registration failed';
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }

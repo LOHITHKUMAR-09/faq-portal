@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 import Navbar from './components/layout/Navbar';
 
 // Pages
@@ -43,30 +43,28 @@ const ProtectedRoute = ({ children, requiredRole }) => {
 // ── App ──────────────────────────────────────────────────────────────
 const App = () => {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/"                   element={<HomePage />} />
-          <Route path="/faqs"               element={<FAQListPage />} />
-          <Route path="/faqs/submit"        element={<ProtectedRoute><SubmitFAQPage /></ProtectedRoute>} />
-          <Route path="/faqs/:id"           element={<FAQDetailPage />} />
-          <Route path="/faqs/:id/edit"      element={<ProtectedRoute><EditFAQPage /></ProtectedRoute>} />
-          <Route path="/profile/:id"        element={<ProfilePage />} />
-          <Route path="/profile/edit"       element={<ProtectedRoute><EditProfilePage /></ProtectedRoute>} />
-          <Route path="/saved"              element={<ProtectedRoute><SavedFAQsPage /></ProtectedRoute>} />
-          <Route path="/feed"               element={<ProtectedRoute><ActivityFeedPage /></ProtectedRoute>} />
-          <Route path="/leaderboard"        element={<LeaderboardPage />} />
-          <Route path="/mod"                element={<ProtectedRoute requiredRole="moderator"><ModQueuePage /></ProtectedRoute>} />
-          <Route path="/admin"              element={<ProtectedRoute requiredRole="admin"><AdminDashboardPage /></ProtectedRoute>} />
-          <Route path="/login"              element={<LoginPage />} />
-          <Route path="/register"           element={<RegisterPage />} />
-          <Route path="/forgot-password"    element={<ForgotPasswordPage />} />
-          <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
-          <Route path="*"                   element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/"                   element={<HomePage />} />
+        <Route path="/faqs"               element={<FAQListPage />} />
+        <Route path="/faqs/submit"        element={<ProtectedRoute><SubmitFAQPage /></ProtectedRoute>} />
+        <Route path="/faqs/:id"           element={<FAQDetailPage />} />
+        <Route path="/faqs/:id/edit"      element={<ProtectedRoute><EditFAQPage /></ProtectedRoute>} />
+        <Route path="/profile/:id"        element={<ProfilePage />} />
+        <Route path="/profile/edit"       element={<ProtectedRoute><EditProfilePage /></ProtectedRoute>} />
+        <Route path="/saved"              element={<ProtectedRoute><SavedFAQsPage /></ProtectedRoute>} />
+        <Route path="/feed"               element={<ProtectedRoute><ActivityFeedPage /></ProtectedRoute>} />
+        <Route path="/leaderboard"        element={<LeaderboardPage />} />
+        <Route path="/mod"                element={<ProtectedRoute requiredRole="moderator"><ModQueuePage /></ProtectedRoute>} />
+        <Route path="/admin"              element={<ProtectedRoute requiredRole="admin"><AdminDashboardPage /></ProtectedRoute>} />
+        <Route path="/login"              element={<LoginPage />} />
+        <Route path="/register"           element={<RegisterPage />} />
+        <Route path="/forgot-password"    element={<ForgotPasswordPage />} />
+        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+        <Route path="*"                   element={<NotFoundPage />} />
+      </Routes>
+    </>
   );
 };
 

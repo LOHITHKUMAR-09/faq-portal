@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import ReactMarkdown from 'react-markdown';
-import { formatDistanceToNow } from 'timeago.js';
+import * as timeago from 'timeago.js';
 import {
   ChevronUp, ChevronDown, Bookmark, BookmarkCheck, Flag, Edit2, Trash2,
   CheckCircle, MessageSquare, Eye, AlertTriangle, X, Send,
@@ -63,7 +63,7 @@ const Comment = ({ comment, onDelete, canDelete }) => (
     <div className="flex-1 min-w-0">
       <div className="flex items-center gap-2">
         <span className="text-sm font-medium text-gray-800">{comment.author?.name}</span>
-        <span className="text-xs text-gray-400">{formatDistanceToNow(new Date(comment.createdAt), { locale: 'en' })}</span>
+        <span className="text-xs text-gray-400">{timeago.format(comment.createdAt)}</span>
         {canDelete && (
           <button onClick={() => onDelete(comment._id)} className="ml-auto text-gray-300 hover:text-red-400 transition-colors">
             <X size={12} />
@@ -123,7 +123,7 @@ const AnswerCard = ({ answer, faqAuthorId, currentUser, onVote, onAccept, onDele
                 )}
               </div>
               <span className="text-xs text-gray-400">
-                {formatDistanceToNow(new Date(answer.createdAt), { locale: 'en' })}
+                {timeago(new Date(answer.createdAt))}
               </span>
             </div>
 
@@ -484,7 +484,7 @@ const FAQDetailPage = () => {
                   <span className="text-gray-600 font-medium">{faq.author?.name}</span>
                   {faq.author?.reputation != null && <span className="text-yellow-500">★ {faq.author.reputation}</span>}
                 </span>
-                <span>{formatDistanceToNow(new Date(faq.createdAt), { locale: 'en' })}</span>
+                <span>{timeago(new Date(faq.createdAt))}</span>
                 <span className="flex items-center gap-0.5"><Eye size={13} /> {faq.views || 0} views</span>
                 <span className="flex items-center gap-0.5"><MessageSquare size={13} /> {faq.answers?.length || 0} answers</span>
               </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { formatDistanceToNow } from 'timeago.js';
+import * as timeago from 'timeago.js';
 import { Search, ChevronUp, ChevronDown, MessageSquare, Eye, Tag, Filter, X } from 'lucide-react';
 import { faqs } from '../services/api';
 import { useAuth } from '../context/AuthContext';
@@ -316,7 +316,7 @@ const FAQListPage = () => {
                         <img src={getAvatarUrl(faq.author)} className="w-5 h-5 rounded-full" alt="" />
                         {faq.author?.name}
                       </span>
-                      <span>{formatDistanceToNow(new Date(faq.createdAt), { locale: 'en' })}</span>
+                      <span>{timeago(new Date(faq.createdAt))}</span>
                       <span className="flex items-center gap-0.5"><MessageSquare size={12} /> {faq.answers?.length || 0}</span>
                       <span className="flex items-center gap-0.5"><Eye size={12} /> {faq.views || 0}</span>
                       {(user?.role === 'moderator' || user?.role === 'admin') && <StatusBadge status={faq.status} />}

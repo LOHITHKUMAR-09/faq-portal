@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '.env') });
 
 const express = require('express');
 const http = require('http');
@@ -58,7 +58,8 @@ app.use(cors({
 
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
-app.use(expressMongoSanitize({ replaceWith: '_' }));
+// TODO: express-mongo-sanitize has compatibility issues with Express 5+
+// app.use(expressMongoSanitize({ replaceWith: '_' }));
 
 // ── Global rate limiter (fallback — per-route ones override per-path) ─────────
 const globalLimiter = rateLimit({

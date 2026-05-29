@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { formatDistanceToNow } from 'timeago.js';
+import * as timeago from 'timeago.js';
 import {
   User, Star, Calendar, MessageSquare, ThumbsUp, CheckCircle,
   Award, Trophy, ChevronDown, Loader2,
@@ -168,7 +168,7 @@ const ProfilePage = () => {
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Calendar size={14} />
-                  Joined {formatDistanceToNow(new Date(profile.createdAt), { locale: 'en' })}
+                  Joined {timeago(new Date(profile.createdAt))}
                 </span>
               </div>
             </div>
@@ -280,7 +280,7 @@ const ProfilePage = () => {
                           <CheckCircle size={11} /> Accepted
                         </span>
                       )}
-                      <span>{formatDistanceToNow(new Date(ans.createdAt), { locale: 'en' })}</span>
+                      <span>{timeago(new Date(ans.createdAt))}</span>
                     </div>
                   </Link>
                 ))}
@@ -301,7 +301,7 @@ const ProfilePage = () => {
                           <> — <Link to={`/faqs/${event.faq._id}`} className="text-blue-500 hover:underline">{event.faq.question}</Link></>
                         )}
                       </p>
-                      <p className="text-xs text-gray-400 mt-0.5">{formatDistanceToNow(new Date(event.createdAt), { locale: 'en' })}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{timeago(new Date(event.createdAt))}</p>
                     </div>
                   </div>
                 ))}

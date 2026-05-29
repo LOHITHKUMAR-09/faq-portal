@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { formatDistanceToNow } from 'timeago.js';
+import * as timeago from 'timeago.js';
 import { faqs } from '../services/api';
 import { stats } from '../services/api';
 
@@ -110,7 +110,7 @@ const HomePage = () => {
                             className="w-5 h-5 rounded-full" alt="" />
                           {faq.author?.name}
                         </span>
-                        <span>{formatDistanceToNow(new Date(faq.createdAt), { locale: 'en' })}</span>
+                        <span>{timeago(new Date(faq.createdAt))}</span>
                         <span>👍 {faq.votes}</span>
                         <span>💬 {faq.answers?.length || 0}</span>
                       </div>

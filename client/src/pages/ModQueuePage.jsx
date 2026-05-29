@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { formatDistanceToNow } from 'timeago.js';
+import * as timeago from 'timeago.js';
 import {
   Flag, CheckCircle, XCircle, Clock, AlertTriangle, Eye,
   MessageSquare, Loader2, ChevronDown, Ban,
@@ -95,7 +95,7 @@ const FAQRow = ({ faq, onApprove, onReject }) => {
                 {faq.author?.name || 'Unknown'}
               </span>
               <span className="flex items-center gap-1"><Clock size={11} />
-                {faq.createdAt ? formatDistanceToNow(new Date(faq.createdAt), { locale: 'en' }) : 'recently'}
+                {faq.createdAt ? timeago(new Date(faq.createdAt)) : 'recently'}
               </span>
               {faq.category && <span className="capitalize px-2 py-0.5 bg-gray-100 rounded-full">{faq.category}</span>}
               {faq.tags?.map((t) => (
@@ -186,7 +186,7 @@ const ReportRow = ({ report, onAction, onDismiss }) => {
           )}
           <div className="flex items-center gap-3 text-xs text-gray-400">
             <span>Reported by <strong className="text-gray-600">{report.reporter?.name || 'Unknown'}</strong></span>
-            <span>{report.createdAt ? formatDistanceToNow(new Date(report.createdAt), { locale: 'en' }) : ''}</span>
+            <span>{report.createdAt ? timeago(new Date(report.createdAt)) : ''}</span>
             {report.targetType && (
               <span className="capitalize">on {report.targetType}</span>
             )}

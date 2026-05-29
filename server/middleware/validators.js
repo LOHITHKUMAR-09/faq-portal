@@ -8,6 +8,7 @@ const validate = (req, _res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) return next();
 
+  console.error('Validation errors:', errors.array());
   const formatted = errors.array().map((e) => ({
     field: e.path,
     message: e.msg,
